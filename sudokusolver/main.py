@@ -1,6 +1,6 @@
-from sudoku_board.sudokuboard import SudokuBoard
-from sudoku_logic.simplelogic import run_simple_logic
-from sudoku_logic.simplelogic import check_board
+from .models.sudoku_board import SudokuBoard
+from .logic.simple_logic import run_simple_logic
+# from .logic.simple_logic import check_board
 
 def main(): 
     test_board = SudokuBoard()
@@ -63,7 +63,7 @@ def main():
 
     test_board.print()
     
-    if check_board(test_board):
+    if test_board.is_correct() == 1:
         print("Board passes tests! It seems correct!")
     else:
         print("There is an error in the board somewhere!")

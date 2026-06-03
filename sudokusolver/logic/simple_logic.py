@@ -1,7 +1,11 @@
-from sudoku_board.sudokuboard import SudokuBoard
+from ..models.sudoku_board import SudokuBoard
 
 def check_row(board: SudokuBoard, abs_pos: int) -> int:
-    # cell = board.get_cell(abs_pos)
+    """
+    Checks the row of the cell at the given absolute position for possible values. 
+    If exactly one candidate value is found, it is set to that value and 1 is returned. Otherwise, 0 is returned.
+    """
+    
     if board.get_cell(abs_pos).get_value() != 0:
         return 0
     
@@ -17,7 +21,11 @@ def check_row(board: SudokuBoard, abs_pos: int) -> int:
     return 0
             
 def check_column(board: SudokuBoard, abs_pos: int) -> int:
-    # cell = board.get_cell(abs_pos)
+    """
+    Checks the column of the cell at the given absolute position for possible values. 
+    If exactly one candidate value is found, it is set to that value and 1 is returned. Otherwise, 0 is returned.
+    """
+    
     if board.get_cell(abs_pos).get_value() != 0:
         return 0
     
@@ -33,7 +41,11 @@ def check_column(board: SudokuBoard, abs_pos: int) -> int:
     return 0
 
 def check_box(board: SudokuBoard, abs_pos: int) -> int:
-    # cell = board.get_cell(abs_pos)
+    """
+    Checks the box of the cell at the given absolute position for possible values. 
+    If exactly one candidate value is found, it is set to that value and 1 is returned. Otherwise, 0 is returned.
+    """
+
     if board.get_cell(abs_pos).get_value() != 0:
         return 0
     
@@ -54,8 +66,15 @@ def check_box(board: SudokuBoard, abs_pos: int) -> int:
     
     return 0
 
+
 def run_simple_logic(board: SudokuBoard):
-    
+    """ 
+    Runs the simple logic of checking each cell's row, column, and box for possible values. 
+    If a cell is found to have exactly one candidate value, it is set to that value. 
+    This process is repeated until no more cells can be solved with this logic.
+    Returns 1 if the board is solved, otherwise returns 0.
+    """
+
     abs_pos = 0
     
     while abs_pos < 81:
@@ -75,34 +94,6 @@ def run_simple_logic(board: SudokuBoard):
         if board.get_cell_value(i) == 0:
             return 0
         
-    return 1
-
-def check_board(board: SudokuBoard) -> int:
-    
-    row_arr = []
-    for x in range(1, 10):
-        for y in range(1, 10):
-            row_arr.append(board.get_cell_value(x, y))
-            
-        row_arr.sort()
-        for i in range(9):
-            if row_arr[i] != (i + 1):
-                return 0
-            
-        row_arr.clear()
-            
-    col_arr = []
-    for y in range(1, 10):
-        for x in range(1, 10):
-            col_arr.append(board.get_cell_value(x, y))
-            
-        col_arr.sort()
-        for i in range(9):
-            if col_arr[i] != (i + 1):
-                return 0
-            
-        col_arr.clear()
-            
     return 1
         
         

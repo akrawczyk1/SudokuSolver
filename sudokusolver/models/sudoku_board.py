@@ -1,4 +1,4 @@
-from sudoku_board.sudokucell import SudokuCell
+from .sudoku_cell import SudokuCell
 
 class SudokuBoard:
     
@@ -30,27 +30,78 @@ class SudokuBoard:
         return self.values[abs_pos]
         
     # Requires a value to set a cell to. Specify one coordinate to use absolute or two coordinates to use xy.
-    def set_cell_value(self, value, abs_pos, y_pos = None):
+    def set_cell_value(self, value, abs_pos_or_x_pos, y_pos = None):
                         
         if y_pos == None: # Mode 1: define an absolute position
+            abs_pos = abs_pos_or_x_pos
             if abs_pos < 0 or abs_pos >= len(self.values):
                 raise IndexError("Absolute position must be between 0 and 80")                
             
         else: # Mode 2: define an xy position (where [x,y] of top-left cell is [1,1] and bottom right is [9,9])
-            if (abs_pos < 1 or abs_pos > 9):
+            x_pos = abs_pos_or_x_pos
+            if (x_pos < 1 or x_pos > 9):
                 raise IndexError("x-position must be between 1 and 9 inclusive!")
             elif (y_pos < 1 or y_pos > 9):
                 raise IndexError("y-position must be between 1 and 9 inclusive!")
             else:
-                abs_pos = self.coordinate_to_absolute(abs_pos, y_pos)
+                abs_pos = self.coordinate_to_absolute(x_pos, y_pos)
                       
         self.values[abs_pos].set_value(value)
-        
-    def get_cell_value(self, abs_pos, y_pos = None) -> int:
+
+    # Requires one coordinate to use absolute or two coordinates to use xy.    
+    def get_cell_value(self, abs_pos_or_x_pos, y_pos = None) -> int:
         if y_pos == None:
+            abs_pos = abs_pos_or_x_pos
             return self.get_cell(abs_pos).get_value()
         else:
-            return self.get_cell(self.coordinate_to_absolute(abs_pos, y_pos)).get_value()
+            x_pos = abs_pos_or_x_pos
+            return self.get_cell(self.coordinate_to_absolute(x_pos, y_pos)).get_value()
+        
+    def is_correct(self) -> int:
+        """
+        Checks if the board is solved correctly by iterating across every row, column, and box. 
+        Returns 1 if it is, otherwise returns 0.
+        """
+
+        col_arr = []
+        for x in range(1, 10):
+            for y in range(1, 10):
+                col_arr.append(self.get_cell_value(x, y))
+                
+            col_arr.sort()
+            for i in range(9):
+                if col_arr[i] != (i + 1):
+                    return 0
+                
+            col_arr.clear()
+                
+        row_arr = []
+        for y in range(1, 10):
+            for x in range(1, 10):
+                row_arr.append(self.get_cell_value(x, y))
+                
+            row_arr.sort()
+            for i in range(9):
+                if row_arr[i] != (i + 1):
+                    return 0
+                
+            row_arr.clear()
+
+        box_arr = []
+        for x in range(1, 10, 3):
+            for y in range(1, 10, 3):
+                for x_box in range(x, x + 3):
+                    for y_box in range(y, y + 3):
+                        box_arr.append(self.get_cell_value(x_box, y_box))
+                        
+                box_arr.sort()
+                for i in range(9):
+                    if box_arr[i] != (i + 1):
+                        return 0
+                    
+                box_arr.clear()
+
+        return 1
     
     def print(self) -> None:
         for i in range(81):

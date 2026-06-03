@@ -1,4 +1,4 @@
-from sudokusolver.sudoku_board.sudokucell import SudokuCell
+from sudokusolver.models.sudoku_cell import SudokuCell
 
 def test_sudoku_cell_starts_empty():
     cell = SudokuCell()
