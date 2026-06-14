@@ -2,7 +2,7 @@ from .sudoku_cell import SudokuCell
 
 class SudokuBoard:
     
-    def __init__(self):
+    def __init__(self) -> None:
         # The index of each SudokuCell is referred to as its "absolute position" (as opposed to xy position)
         self.values = [SudokuCell() for _ in range(81)]
         
@@ -28,6 +28,9 @@ class SudokuBoard:
     
     def get_cell(self, abs_pos) -> SudokuCell:
         return self.values[abs_pos]
+    
+    def get_all_cells(self) -> list[SudokuCell]:
+        return self.values
         
     # Requires a value to set a cell to. Specify one coordinate to use absolute or two coordinates to use xy.
     def set_cell_value(self, value, abs_pos_or_x_pos, y_pos = None):
@@ -56,6 +59,17 @@ class SudokuBoard:
         else:
             x_pos = abs_pos_or_x_pos
             return self.get_cell(self.coordinate_to_absolute(x_pos, y_pos)).get_value()
+        
+    def is_complete(self) -> int:
+        """
+        Checks if the board contains any empty cells. Returns 1 if it is complete, otherwise returns 0.
+        """
+
+        for i in range(81):
+            if self.get_cell_value(i) == 0:
+                return 0
+            
+        return 1
         
     def is_correct(self) -> int:
         """
