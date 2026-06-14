@@ -41,7 +41,6 @@ def backtrack(board: SudokuBoard) -> tuple[SudokuBoard, int]:
     Returns -1 if the board is unsolved.
     """
     
-    snapshot_board_permanent = deepcopy(board)
     snapshot_board = deepcopy(board)
     run_simple_logic(snapshot_board)
 
@@ -57,8 +56,14 @@ def backtrack(board: SudokuBoard) -> tuple[SudokuBoard, int]:
     candidate_list = snapshot_board.get_cell(candidate_cell_abs_pos).get_possible_values()
 
     for candidate in candidate_list:
-        snapshot_board.set_cell_value(candidate, candidate_cell_abs_pos)
+        mutable_snapshot_board = deepcopy(snapshot_board)
+        mutable_snapshot_board.set_cell_value(candidate, candidate_cell_abs_pos)
+        return_board = backtrack(mutable_snapshot_board)
+
+        if return_board[1] == 1:
+            return return_board
+        
         
     
 
-    return (snapshot_board, -1)
+    return (board, -1)
