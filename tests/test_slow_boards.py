@@ -40,7 +40,8 @@ def test_full_dataset():
             # for c in solution_str:
             #     solution_list.append(int(c))
 
-            input_board, solution_board = SudokuBoard(), SudokuBoard()
+            # input_board, solution_board = SudokuBoard(), SudokuBoard()
+            input_board = SudokuBoard()
 
             input_board.initialize_board(input_list)
             # solution_board.initialize_board(solution_list)
@@ -48,7 +49,7 @@ def test_full_dataset():
             output_board, ret_value = backtrack(input_board)
 
             output_board_list = output_board.get_all_values()
-            solution_board_list = solution_board.get_all_values()
+            # solution_board_list = solution_board.get_all_values()
 
             assert ret_value == 1
             
