@@ -1,6 +1,6 @@
 [project]
 name = "sudokusolver"
-version = "0.1.0"
+version = "1.0.0"
 description = "Command-line Sudoku solver using constraint propagation and backtracking search"
 readme = "README.md"
 requires-python = ">=3.12"
