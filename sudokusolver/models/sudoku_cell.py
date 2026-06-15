@@ -15,7 +15,7 @@ class SudokuCell:
             
     def set_value(self, val) -> None:
         if val < 0 or val > 9:
-            raise ValueError("Value of a cell must be between 1 and 9 inclusive!")
+            raise ValueError("Value of a cell must be between 0 and 9 inclusive!")
         else:
             self.value = val
             self.possible_values.clear()
