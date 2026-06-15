@@ -48,12 +48,15 @@ def test_full_dataset():
 
             output_board, ret_value = backtrack(input_board)
 
-            output_board_list = output_board.get_all_values()
+            # output_board_list = output_board.get_all_values()
             # solution_board_list = solution_board.get_all_values()
 
             assert ret_value == 1
             
-            
+            # if output_board_list == solution_board_list:
+            #     print(f"Board {index} has a valid solution, but it doesn't match with the published solution.")
+            # elif output_board.is_correct() == 1:
+                # pass
             if output_board.is_correct() == 1:
                 pass
             else:
