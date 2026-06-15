@@ -29,21 +29,21 @@ def test_full_dataset():
 
         for _, row in chunk.iloc[::SKIP_VALUE].iterrows():
             input_str = row["quizzes"]
-            solution_str = row["solutions"]
+            # solution_str = row["solutions"]
             num_clues = int(row["clue_numbers"])
 
             input_list = []
-            solution_list = []
+            # solution_list = []
             for c in input_str:
                 input_list.append(int(c))
 
-            for c in solution_str:
-                solution_list.append(int(c))
+            # for c in solution_str:
+            #     solution_list.append(int(c))
 
             input_board, solution_board = SudokuBoard(), SudokuBoard()
 
             input_board.initialize_board(input_list)
-            solution_board.initialize_board(solution_list)
+            # solution_board.initialize_board(solution_list)
 
             output_board, ret_value = backtrack(input_board)
 
@@ -52,10 +52,8 @@ def test_full_dataset():
 
             assert ret_value == 1
             
-            if output_board_list == solution_board_list:
-                pass
-            elif output_board.is_correct() == 1:
-                # print(f"Found solution is valid but does not match provided solution for puzzle {index}; input string is: {input_str} with num clues: {num_clues}")
+            
+            if output_board.is_correct() == 1:
                 pass
             else:
                 assert False, f"===ERROR=== Invalid solution for puzzle {index}; input string is: {input_str}, with num clues: {num_clues}"
