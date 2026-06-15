@@ -156,6 +156,8 @@ def main():
         print(f"This is the demo mode of the program; it has solved two test puzzles above from sudoku.com.\n"
               f"If you would like to run this program on your own puzzle or a csv file containing puzzles,\n"
               f"please use the --help command to see the correct usage patterns.\n")
+        
+        input("Pres Enter to exit...")
 
 if __name__ == "__main__":
     main()
