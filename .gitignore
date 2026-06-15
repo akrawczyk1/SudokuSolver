@@ -28,3 +28,6 @@ Thumbs.db
 # Notes except README.md
 *.md
 !README.md
+
+# Large data
+tests/data
