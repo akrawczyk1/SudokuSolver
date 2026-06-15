@@ -52,11 +52,11 @@ Here is the solved board:
 This was a personal project I had wanted to write for some time as an excuse to write a recursive algorithm, to practice staging a project in a file tree in a way that made sense, to explore reading and parsing CSV files using pandas, and to explore writing a non-trivial project in Python. On the sudoku side, I learned about several solving strategies, the MRV heuristic, and had fun putting my Python skills to (sort of) good use!
 
 ### Dataset issues:
-The dataset I used for testing was a 6 million puzzle set from Kaggle by user "RYANAN" at the link https://www.kaggle.com/datasets/informoney/4-million-sudoku-puzzles-easytohard.
-Note that his dataset is distributed under the CC BY-NC-SA 4.0 License. Details can be found here:
+The dataset I used for testing was a 4 million puzzle set from Kaggle by user "RYANAN" at the link https://www.kaggle.com/datasets/informoney/4-million-sudoku-puzzles-easytohard. The longest test I ran was on every 10000th puzzle: this results in testing against 400 puzzles of increasing difficulty.
+Note that this dataset is distributed under the CC BY-NC-SA 4.0 License. Details can be found here:
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
-I originally used string comparison to compare my solver's solutions to the published solutions in the dataset. However, I quickly discovered that the solver's solutions frequently disagreed with the published solutions when the number of clues provided were less than roughly 50. As a result of this, I found that the puzzles provided did, in fact, contain many puzzles with non-unique solutions. This doesn't affect the accuracy of my solver; it still provided valid solutions. However, as a result of this, I removed the string comparison test, and fell back exclusively on my constraint satisfaction check -- double checking that each cell is unique within its own row, column, and box, and also checking that the solved puzzle hasn't overwritten any of the filled boxes in the provided unsolved puzzle. For clarity, I left the code that does the string checking in the tests/test_slow_boards.py file, but it is commented out.
+I originally used string comparison to compare my solver's solutions to the published solutions in the dataset. However, I quickly discovered that the solver's solutions frequently disagreed with the published solutions when the number of clues provided was less than roughly 50. As a result of this, I found that the puzzles provided did, in fact, contain many puzzles with non-unique solutions. This doesn't affect the accuracy of my solver; it still provided valid solutions. However, as a result of this, I removed the string comparison test, and fell back exclusively on my constraint satisfaction check -- double checking that the value of each cell appears exactly once within its own row, column, and box, and also checking that the solved puzzle hasn't overwritten any of the filled boxes in the provided unsolved puzzle. For clarity, I left the code that does the string checking in the tests/test_slow_boards.py file, but it is commented out.
 
 ## Usage:
 
@@ -120,7 +120,7 @@ If you would like to run a more exhaustive test, you can run:
 uv run python -m pytest -m slow -s
 ```
 First, you must download a test set. The one that I used for this project is by user "RYANAN" at the link https://www.kaggle.com/datasets/informoney/4-million-sudoku-puzzles-easytohard.
-Note that his dataset is distributed under the CC BY-NC-SA 4.0 License. Details can be found here:
+Note that this dataset is distributed under the CC BY-NC-SA 4.0 License. Details can be found here:
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 Put your CSV file in the directory tests/data. The default behavior is for the test suite to test every 10000th puzzle, and output a line detailing its progress every 10 puzzles solved. If you would like to change these behaviors, go to tests/test_slow_boards.py and change the constants SKIP_VALUE (how many lines to skip between puzzles) and PRINT_LINES (how many puzzles the test should wait to print its progress). For example, in the default setup, SKIP_VALUE = 10000 and PRINT_LINES = 10, the tests will try to solve every 10000th puzzle, and output its progress every 10th solve, which is every 100,000th puzzle.
