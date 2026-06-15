@@ -31,6 +31,13 @@ class SudokuBoard:
     
     def get_all_cells(self) -> list[SudokuCell]:
         return self.values
+    
+    def get_all_values(self) -> list[int]:
+        ret_list = []
+        for cell in self.values:
+            ret_list.append(cell.get_value())
+
+        return ret_list
         
     # Requires a value to set a cell to. Specify one coordinate to use absolute or two coordinates to use xy.
     def set_cell_value(self, value, abs_pos_or_x_pos, y_pos = None):
@@ -60,6 +67,14 @@ class SudokuBoard:
             x_pos = abs_pos_or_x_pos
             return self.get_cell(self.coordinate_to_absolute(x_pos, y_pos)).get_value()
         
+    def is_compatible_with(self, original_board) -> int:
+        for i in range(0, 81):
+            if original_board.get_cell_value(i) != 0:
+                if original_board.get_cell_value(i) != self.get_cell_value(i):
+                    return 0
+                
+        return 1
+
     def is_complete(self) -> int:
         """
         Checks if the board contains any empty cells. Returns 1 if it is complete, otherwise returns 0.

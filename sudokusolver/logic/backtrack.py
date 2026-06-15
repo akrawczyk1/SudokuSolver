@@ -50,6 +50,10 @@ def backtrack(board: SudokuBoard) -> tuple[SudokuBoard, int]:
         else: 
             return (snapshot_board, 0)
         
+        
+        
+    
+        
     if is_board_dead(snapshot_board): return (snapshot_board, -1)
     
     candidate_cell_abs_pos = get_mrv_cell(snapshot_board)
@@ -61,9 +65,6 @@ def backtrack(board: SudokuBoard) -> tuple[SudokuBoard, int]:
         return_board = backtrack(mutable_snapshot_board)
 
         if return_board[1] == 1:
-            return return_board
-        
-        
-    
+            return return_board   
 
     return (board, -1)
