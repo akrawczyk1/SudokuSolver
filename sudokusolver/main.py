@@ -1,7 +1,6 @@
 import argparse
 import os
 from pathlib import Path
-import pandas as pd
 import time 
 
 from .models.sudoku_board import SudokuBoard
@@ -64,6 +63,7 @@ def main():
     args = parser.parse_args()
 
     if args.file is not None: # CSV Mode
+        import pandas as pd
         file_path = args.file
         if file_path == '__search__':
             file_path = next(Path.cwd().glob("*.csv"), None)
