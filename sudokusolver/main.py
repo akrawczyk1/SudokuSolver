@@ -6,10 +6,6 @@ import time
 from .models.sudoku_board import SudokuBoard
 from .logic.backtrack import backtrack
 
-# TODO test cases for pasting
-# 316827594459361728872495163687254319245913876901678452168742935724539681593186247
-# 004002001060050700300000009040020000009080000000000000000000900000200300090007100
-
 def handle_board(input_string: str, print_check: bool = True) -> tuple[SudokuBoard, SudokuBoard, int, float]:
     """
     Takes a valid input string of a sudoku board and tries to solve it.
@@ -28,7 +24,7 @@ def handle_board(input_string: str, print_check: bool = True) -> tuple[SudokuBoa
 
     if print_check:
         if return_code == 1:
-            print(f"Puzzle solved in {end_time - start_time} seconds! Puzzle had input string:\n{input_string}\n")
+            print(f"Puzzle solved in {end_time - start_time:.6f} seconds! Puzzle had input string:\n{input_string}\n")
             print(f"Here is the initial board:")
             input_board.print()
             print()
